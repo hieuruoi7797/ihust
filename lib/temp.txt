@@ -1,0 +1,49 @@
+import 'BaseEntity.dart';
+
+final String tableSetting = 'Setting';
+
+final String _columnId = 'id';
+final String _columnLastUpdate = 'lastUpdate';
+final String _columnTypeEncrypt = 'typeEncrypt';
+final String _columnVersion = 'version';
+final String _columnBucket = 'bucket';
+final String createSettingTable = '''
+        create table IF NOT EXISTS $tableSetting ( 
+          $_columnId integer primary key,
+          $_columnBucket text, 
+          $_columnVersion text,
+          $_columnTypeEncrypt integer, 
+          $_columnLastUpdate integer)
+        ''';
+final String updateColumnBucket = '''
+        ALTER TABLE $tableSetting ADD COLUMN $_columnBucket text
+        ''';
+final String updateColumnVersion = '''
+        ALTER TABLE $tableSetting ADD COLUMN $_columnVersion text
+        ''';
+final String updateColumnTypeEncrypt = '''
+        ALTER TABLE $tableSetting ADD COLUMN $_columnTypeEncrypt integer
+        ''';
+
+class Setting extends BaseEntity {
+  int lastUpdate;
+  Setting(int id, int lastUpdate) : super.withId(id);
+
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{_columnLastUpdate: lastUpdate};
+    if (id != null) {
+      map[_columnId] = id;
+    }
+    return map;
+  }
+
+  Setting.fromMap(Map<String, dynamic> map) : super.withId(map[_columnId]) {
+    lastUpdate = map[_columnLastUpdate];
+  }
+}
+
+
+
+
+
+
