@@ -133,6 +133,10 @@ class _HomeViewStudentState extends State<HomeViewStudent> {
               );
             });
         break;
+      case 1:
+        Navigator.of(context).push(new MaterialPageRoute(
+            builder: (context) => InformationScreen()));
+        break;
       default:
        showDialog(
             context: context,

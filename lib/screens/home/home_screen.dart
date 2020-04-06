@@ -6,6 +6,7 @@ import 'package:ihust/components/custom_dialog.dart';
 import 'package:ihust/models/Student.dart';
 import 'package:ihust/models/Teacher.dart';
 import 'package:ihust/screens/classes/classes.dart';
+import 'package:ihust/screens/information/information.dart';
 part 'home_student_view.dart';
 part 'home_teacher_view.dart';
 
