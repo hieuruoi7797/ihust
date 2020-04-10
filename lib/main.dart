@@ -9,6 +9,8 @@ import 'package:ihust/screens/home/home_screen.dart';
 import 'package:ihust/screens/login/login_screen.dart';
 import 'package:ihust/screens/splash/splash_view_screen.dart';
 
+import 'blocs/information/information_bloc.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
     BlocSupervisor.delegate = AppBlocDelegate();
@@ -21,6 +23,9 @@ void main() async {
       BlocProvider<ClassBloc>(
         create: (context) => ClassBloc(),
       ),
+      BlocProvider<InformationBloc>(
+        create: (context) => InformationBloc(),
+      )
     ],
     child: MyApp(),
   ));

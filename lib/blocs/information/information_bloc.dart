@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:ihust/models/Student.dart';
 import 'package:ihust/utils/services.dart';
+import 'package:ihust/utils/utils.dart';
 
 import 'information_event.dart';
 import 'information_state.dart';
@@ -14,14 +15,14 @@ class InformationBloc extends Bloc<InformationEvent,InformationState> {
   @override
   Stream<InformationState> mapEventToState(InformationEvent event) async* {
     if (event is LoadInforBySessionId)
-      yield* _loadInforBySessionId(sessionId: event.sessionId);
+      yield* _loadInforBySessionId();
   }
 
 
-  Stream<InformationState> _loadInforBySessionId({
-    String sessionId}) async* {
+  Stream<InformationState> _loadInforBySessionId() async* {
     yield state.update(isLoading: true, error: null);
     APIResult apiResult;
+    String sessionId = await ClientUtils.getDeviceDetails();
     AppServices services = new AppServices(
         action: "checklogin&sessionid=$sessionId",
         body: null);
