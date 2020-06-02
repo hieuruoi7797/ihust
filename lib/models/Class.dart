@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'Calendar.dart';
+
 class Class {
   int id;
   String classId;
@@ -25,6 +27,8 @@ class Class {
   int createdDate;
   int lastUpdate;
   List<int> teacherIds;
+  List<Calendar> calendars;
+  int day;
   Class(
       {this.calendarInfo,
       this.classId,
@@ -49,7 +53,8 @@ class Class {
       this.studentNum,
       this.studentNumRange,
       this.teacherIds,
-      this.teachingType});
+      this.calendars
+      });
   Class.fromJS(Map<String, dynamic> map) {
     // print(map);
     this.calendarInfo = map['calendarInfo'];
@@ -81,5 +86,7 @@ class Class {
     this.studentNumRange = map['studentNumRange'];
     // this.teacherIds = json.decode(map['teacherIds']).cast<int>();
     this.teachingType = map['teachingType'];
+    var list = map['timePlaces'] as List;
+    calendars = list.map((i) => Calendar.fromJS(i)).toList();
   }
 }

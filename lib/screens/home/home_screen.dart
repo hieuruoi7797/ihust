@@ -7,6 +7,7 @@ import 'package:ihust/models/Student.dart';
 import 'package:ihust/models/Teacher.dart';
 import 'package:ihust/screens/classes/classes.dart';
 import 'package:ihust/screens/information/information.dart';
+import 'package:ihust/screens/table_time/table_time_screen.dart';
 part 'home_student_view.dart';
 part 'home_teacher_view.dart';
 

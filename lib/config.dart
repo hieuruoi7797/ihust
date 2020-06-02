@@ -1,5 +1,5 @@
 class Config {
-  static final BASE_URL ="https://dev-dot-hust-edu.appspot.com/api?type=";
+  static final BASE_URL ="https://set-hust.appspot.com/api?type=";
   static final  NULL_TXT = "";
   static final NULL_ID = -1;
   static final PAYMENT_TYPE_1A = 1;

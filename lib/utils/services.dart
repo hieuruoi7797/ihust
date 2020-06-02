@@ -22,7 +22,7 @@ class AppServices {
   Future<APIResult> post() async {
     var startTime = new DateTime.now().millisecondsSinceEpoch;
     String url =
-        "http://test.hust-edu.appspot/api?username=xxx&password=yyy&sessionid=zzz";
+        "http://set-hust.appspot/api?username=xxx&password=yyy&sessionid=zzz";
     // if(superAPI != null && superAPI) {
     //   url = baseURL2;
     // }

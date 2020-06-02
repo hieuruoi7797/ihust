@@ -69,7 +69,7 @@ class _HomeViewStudentState extends State<HomeViewStudent> {
             Container(
               height: 440,
               child: GridView.builder(
-                itemCount: 4,
+                itemCount: 5,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 itemBuilder: (BuildContext context, int index) {
@@ -137,6 +137,10 @@ class _HomeViewStudentState extends State<HomeViewStudent> {
         Navigator.of(context).push(new MaterialPageRoute(
             builder: (context) => InformationScreen()));
         break;
+      case 4:
+        Navigator.of(context).push(new MaterialPageRoute(
+            builder: (context) => TableTimeScreen(userId: user.studentId)));
+        break;
       default:
        showDialog(
             context: context,
@@ -180,7 +184,10 @@ class _HomeViewStudentState extends State<HomeViewStudent> {
       case 3:
         title = "Lịch học";
         icon = Icons.schedule;
-
+        break;
+      case 4:
+        title = "Thời khóa biểu";
+        icon = Icons.event;
         break;
       default:
         title = "xx";

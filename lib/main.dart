@@ -9,7 +9,9 @@ import 'package:ihust/screens/home/home_screen.dart';
 import 'package:ihust/screens/login/login_screen.dart';
 import 'package:ihust/screens/splash/splash_view_screen.dart';
 
+
 import 'blocs/information/information_bloc.dart';
+import 'blocs/table_time/tabletime_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +27,9 @@ void main() async {
       ),
       BlocProvider<InformationBloc>(
         create: (context) => InformationBloc(),
+      ),
+      BlocProvider<TabletimeBloc>(
+        create: (context) => TabletimeBloc(),
       )
     ],
     child: MyApp(),
