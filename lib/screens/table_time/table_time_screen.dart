@@ -17,7 +17,7 @@ class TableTimeScreen extends StatefulWidget{
 
 class _TableTimeScreenState extends State<TableTimeScreen> {
   TabletimeBloc tabletimeBloc;
-  String get userId => widget.userId ?? -1;
+  String get userId => widget.userId ?? '-1';
   List<Class> monClasses = new List();
   List<Class> tueClasses = new List();
   List<Class> wedClasses = new List();

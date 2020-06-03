@@ -5,10 +5,7 @@ import 'package:ihust/blocs/authorize/authorize_bloc.dart';
 import 'package:ihust/components/custom_dialog.dart';
 import 'package:ihust/models/Student.dart';
 import 'package:ihust/models/Teacher.dart';
-import 'package:ihust/screens/classes/classes.dart';
-import 'package:ihust/screens/information/information.dart';
-import 'package:ihust/screens/table_time/table_time_screen.dart';
-part 'home_student_view.dart';
+import 'home_student_view.dart';
 part 'home_teacher_view.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -36,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
             print("chúc mừng , đừng return nữa , lỗi cmnr!!!");
             return Scaffold();
           } else if (state.user is Student)
-            return HomeViewStudent(user: state.user);
+            return HomeViewStudent();
           else if (state.user is Teacher) {
             return HomeTeacherView();
           } else {
