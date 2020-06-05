@@ -18,13 +18,6 @@ class TableTimeScreen extends StatefulWidget{
 class _TableTimeScreenState extends State<TableTimeScreen> {
   TabletimeBloc tabletimeBloc;
   String get userId => widget.userId ?? '-1';
-  List<Class> monClasses = new List();
-  List<Class> tueClasses = new List();
-  List<Class> wedClasses = new List();
-  List<Class> thuClasses = new List();
-  List<Class> friClasses = new List();
-  List<Class> satClasses = new List();
-  List<Class> sunClasses = new List();
   @override
   void initState(){
     tabletimeBloc = BlocProvider.of<TabletimeBloc>(context);
@@ -42,27 +35,9 @@ class _TableTimeScreenState extends State<TableTimeScreen> {
         bloc: tabletimeBloc,
         builder: (context, state){
           if (state.classes.isNotEmpty){
-            for (var i = 0; i < state.classes.length; i++) {
-              print(i);
-              if (state.classes[i].day == 2)
-              {monClasses.add(state.classes[i]);
-              state.classes.removeAt(i);}
-              if (state.classes[i].day == 3)
-              {tueClasses.add(state.classes[i]);
-              state.classes.removeAt(i);}
-              if (state.classes[i].day == 4)
-              {wedClasses.add(state.classes[i]);
-              state.classes.removeAt(i);}
-            }
             return TableTimeView(
               userId,
-              monClasses,
-              tueClasses,
-              wedClasses,
-              thuClasses,
-              friClasses,
-              satClasses,
-              sunClasses,
+              state.classes
             );
           }else if(state.isLoading){
             return Scaffold(
