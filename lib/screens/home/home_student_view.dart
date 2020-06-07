@@ -3,12 +3,12 @@ import 'package:ihust/screens/information/information.dart';
 import 'package:ihust/screens/table_time/table_time_screen.dart';
 
 List<dynamic> MENUS = [
-  {"title": "Thoi Khoa Bieu", "color": Colors.blue, "page":TableTimeScreen(),},
-  {"title": "Thong Tin Sinh Vien", "color": Colors.blue, "page":InformationScreen()},
-  {"title": "ANBC", "color": Colors.blue},
-  {"title": "ANBC", "color": Colors.blue},
-  {"title": "ANBC", "color": Colors.blue},
-  {"title": "ANBC", "color": Colors.blue}
+  {"title": "Thời Khóa Biểu", "color": Colors.pinkAccent, "page":TableTimeScreen(),},
+  {"title": "Đồ Án", "color": Colors.deepPurpleAccent, },
+  {"title": "Điểm Danh", "color": Colors.deepOrangeAccent},
+  {"title": "Thực Tập", "color": Colors.cyan},
+  {"title": "Biểu Mẫu Online", "color": Colors.blue},
+  {"title": "Tin Tức Thông Báo", "color": Colors.lightGreen}
 ];
 
 class HomeViewStudent extends StatefulWidget {
@@ -25,7 +25,15 @@ class _HomeViewStudentState extends State<HomeViewStudent> {
     return Scaffold(
       appBar: AppBar(
         title: Text("One Love One Future !"),
-        actions: <Widget>[Icon(Icons.person, color: Colors.white)],
+        actions: <Widget>[
+          InkWell(child: Icon(Icons.person, color: Colors.white,),
+          onTap: (){
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context){
+                return InformationScreen();
+              })
+            );
+          },)],
       ),
       drawer: Container(
         width: 200,
