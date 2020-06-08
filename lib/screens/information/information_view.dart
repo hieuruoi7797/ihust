@@ -35,7 +35,7 @@ class _InformationState extends State<InformationView> {
     return new Stack(
       children: <Widget>[
         new Container(
-          color: Colors.blue,
+          color: Colors.red,
         ),
         new Image.network(
           imgUrl,
@@ -48,7 +48,7 @@ class _InformationState extends State<InformationView> {
             ),
             child: new Container(
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.9),
+                color: Colors.red.withOpacity(0.9),
                 borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
             )),
@@ -86,8 +86,8 @@ class _InformationState extends State<InformationView> {
                     child: new Text(
                       'MSSV: ' +
                           user.studentId +
-                          '\nLớp: ' +
-                          user.className +
+//                          '\nViện: Công nghệ Thông tin và Truyền thông' +
+//                          user.className +
                           '\nNiên khóa: K' +
                           user.studentYear.toString(),
                       style: new TextStyle(
@@ -103,30 +103,15 @@ class _InformationState extends State<InformationView> {
                   ),
                   new Row(
                     children: <Widget>[
-                      rowCell(343, 'POSTS'),
-                      rowCell(673826, 'FOLLOWERS'),
-                      rowCell(275, 'FOLLOWING'),
+                      rowCell( 'NGOẠI NGỮ', user.englishInfo),
+                      rowCell( 'CPA', user.cpa.toString() ),
+                      rowCell( 'LỚP', user.className),
                     ],
                   ),
                   new Divider(height: _height / 30, color: Colors.white),
                   new Padding(
                     padding: new EdgeInsets.only(
                         left: _width / 8, right: _width / 8),
-                    child: new FlatButton(
-                      onPressed: () {},
-                      child: new Container(
-                          child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Icon(Icons.person),
-                          new SizedBox(
-                            width: _width / 30,
-                          ),
-                          new Text('FOLLOW')
-                        ],
-                      )),
-                      color: Colors.blue[50],
-                    ),
                   ),
                 ],
               ),
@@ -135,7 +120,7 @@ class _InformationState extends State<InformationView> {
     );
   }
 
-  Widget rowCell(int count, String type) => new Expanded(
+  Widget rowCell(String count, String type) => new Expanded(
           child: new Column(
         children: <Widget>[
           new Text(

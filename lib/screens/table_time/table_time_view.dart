@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:ihust/models/Class.dart';
 import 'package:ihust/screens/table_time/table_time_detail_view.dart';
 
+List<dynamic> COLORBYDAY = [
+  Colors.redAccent,
+  Colors.orangeAccent,
+  Colors.deepOrange,
+  Colors.lightGreen,
+  Colors.blueAccent,
+  Colors.indigoAccent,
+  Colors.purpleAccent,
+];
+
 class TableTimeView extends StatefulWidget {
   final String userId;
   List<Class> classes;
@@ -23,6 +33,9 @@ class _CalendarState extends State<TableTimeView> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
         home: DefaultTabController(
             length: 2,
             child: Scaffold(
@@ -37,7 +50,7 @@ class _CalendarState extends State<TableTimeView> {
                 ),
                 body: TabBarView(children: [
                   calendarByWeek(classes),
-                  calendarBySubject(),
+                  calendarBySubject(classes),
                 ]))));
   }
 }
@@ -50,7 +63,7 @@ ListView calendarByWeek(List<Class> classes) {
           new Padding(
             padding: const EdgeInsets.only(left: 50.0),
             child: new Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(7),
                 child: Column(children: renderSubject(classes, index))),
           ),
           new Positioned(
@@ -59,7 +72,7 @@ ListView calendarByWeek(List<Class> classes) {
             left: 35.0,
             child: new Container(
               height: double.infinity,
-              width: 1.0,
+              width: 5.0,
               color: Colors.blue,
             ),
           ),
@@ -71,7 +84,7 @@ ListView calendarByWeek(List<Class> classes) {
               width: 40.0,
               decoration: new BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white,
+                color: Colors.blue,
               ),
               child: new Container(
                 margin: new EdgeInsets.all(5.0),
@@ -80,9 +93,7 @@ ListView calendarByWeek(List<Class> classes) {
                 child: Text(
                   "Thứ $index",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
+                  style: TextStyle(fontSize: 14, color: Colors.white),
                 ),
               ),
             ),
@@ -94,8 +105,31 @@ ListView calendarByWeek(List<Class> classes) {
   );
 }
 
-ListView calendarBySubject() {
-  return new ListView();
+ListView calendarBySubject(List<Class> classes) {
+  return ListView.builder(
+      itemCount: classes.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Card(
+          margin: EdgeInsets.all(5),
+          color: (COLORBYDAY[index]),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: Container(
+              height: 100.0,
+              margin: EdgeInsets.all(8),
+              child: Text(
+                'MÔN: ' +
+                    classes[index].name +
+                    '\nSỐ TC: ' +
+                    classes[index].creditInfo +
+                    '\nMÃ LỚP: ' +
+                    classes[index].classId +
+                    '\nMÃ HỌC PHẦN: ' +
+                    classes[index].courseId,
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              )),
+        );
+      });
 }
 
 List<Widget> renderSubject(List<Class> listitem, int index) {
@@ -104,7 +138,7 @@ List<Widget> renderSubject(List<Class> listitem, int index) {
     if (listitem[i].day == index) {
       listCard.add(Card(
         margin: EdgeInsets.all(5),
-        color: Colors.amber,
+        color: (COLORBYDAY[i]),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Container(
@@ -113,9 +147,9 @@ List<Widget> renderSubject(List<Class> listitem, int index) {
           height: 50.0,
           child: Text(
             listitem[i].name +
-                ' - Phòng ' +
+                '\nPhòng ' +
                 listitem[i].calendars[0].place +
-                ' - Tiết: ' +
+                '\nTiết: ' +
                 listitem[i].calendars[0].from.toString() +
                 ' - ' +
                 listitem[i].calendars[0].to.toString(),

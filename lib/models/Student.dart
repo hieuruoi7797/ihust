@@ -8,7 +8,7 @@ class Student {
   int birthday = Config.NULL_ID;
   String studentYear = Config.TEXT_EMPTY;
   int gender = 1;
-  int phoneNumber = Config.NULL_ID;
+  String phoneNumber = Config.TEXT_EMPTY;
   String englishInfo = Config.TEXT_EMPTY;
   int cpa = Config.NULL_ID;
   String email = Config.TEXT_EMPTY;
@@ -133,13 +133,13 @@ class Student {
     this.studentId = mapStudent['studentId'];
     this.birthday = mapStudent['birthdate'];
     this.scholarYear = mapStudent['year'];
-    // this.email = mapStudent['email'];
-    // this.phoneNumber = mapStudent['phoneNumber'];
+    this.email = mapStudent['email'];
+    this.phoneNumber = mapStudent['phoneNumber'];
     this.studentYear = mapStudent['studentYear'];
     this.englishInfo = mapStudent['englishInfo'];
     this.classId = mapStudent['classId'];
     this.className = mapStudent['className'];
-    // this.cpa = mapStudent['cpa'];
+//    this.cpa = mapStudent['cpa'];
     // this.cvUrl = mapStudent['cvUrl'];
     print("xxx");
   }
