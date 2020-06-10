@@ -51,8 +51,9 @@ dependencies:
   flutter_tableview: ^1.0.1
   firebase_core: ^0.4.0+9
   flutter_local_notifications: ^1.4.4
-
   firebase_messaging: ^6.0.16
+  qr_flutter: ^1.1.1
+  barcode_scan: 3.0.1
 
 
 dev_dependencies:
