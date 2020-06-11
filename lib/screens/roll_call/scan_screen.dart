@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class ScanScreen extends StatefulWidget {
   @override
-    _ScanState createState() => new _ScanState();
+  _ScanState createState() => new _ScanState();
 }
 
 class _ScanState extends State<ScanScreen> {
@@ -16,48 +16,59 @@ class _ScanState extends State<ScanScreen> {
       appBar: new AppBar(
         title: new Text('QR CODE SCANNER'),
       ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: RaisedButton(
-                color: Colors.blue,
-                textColor: Colors.white,
-                splashColor: Colors.blueGrey,
-                onPressed: scan,
-                child: const Text('STAT CAMERA SCAN'),
-              ),
+      body: new Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(
+                left: 16.0, right: 16.0, bottom: 64.0, top: 8.0),
+            child: Text(
+              barcode,
+              textAlign: TextAlign.start,
             ),
-            Padding(
+          ),
+          Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Text(barcode, textAlign: TextAlign.center,),
-            )
-          ],
-        ),
+              child: TextField(
+//                selectionHeightStyle: BoxHeightStyle,
+                expands: false,
+                minLines: 20,
+                maxLines: 100,
+                decoration: InputDecoration(hintText: 'Enter the answer'),
+              )),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: RaisedButton(
+              color: Colors.red,
+              textColor: Colors.white,
+              splashColor: Colors.blueGrey,
+              onPressed: scan,
+              child: const Text('STAT CAMERA SCAN'),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-
-Future scan() async {
-  try {
-    ScanResult barcode = await BarcodeScanner.scan();
-    setState(() => this.barcode = barcode.rawContent);
-  } on PlatformException catch (e) {
-    if (e.code == BarcodeScanner.cameraAccessDenied) {
-      setState(() {
-        this.barcode = 'The user did not grant the camera permission!';
-      });
-    } else {
+  Future scan() async {
+    try {
+      ScanResult barcode = await BarcodeScanner.scan();
+      setState(() => this.barcode = barcode.rawContent);
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.cameraAccessDenied) {
+        setState(() {
+          this.barcode = 'The user did not grant the camera permission!';
+        });
+      } else {
+        setState(() => this.barcode = 'Unknown error: $e');
+      }
+    } on FormatException {
+      setState(() => this.barcode =
+          'null (User returned using the "back"-button before scanning anything. Result)');
+    } catch (e) {
       setState(() => this.barcode = 'Unknown error: $e');
     }
-  } on FormatException{
-    setState(() => this.barcode = 'null (User returned using the "back"-button before scanning anything. Result)');
-  } catch (e) {
-    setState(() => this.barcode = 'Unknown error: $e');
   }
-}
 }

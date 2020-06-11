@@ -37,10 +37,6 @@ class _InformationState extends State<InformationView> {
         new Container(
           color: Colors.red,
         ),
-        new Image.network(
-          imgUrl,
-          fit: BoxFit.fill,
-        ),
         new BackdropFilter(
             filter: new ui.ImageFilter.blur(
               sigmaX: 6.0,
@@ -133,7 +129,4 @@ class _InformationState extends State<InformationView> {
         ],
       ));
 
-  makeBody() => Container(
-        child: Text(user.fullName.toString()),
-      );
 }

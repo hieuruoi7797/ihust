@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ihust/screens/information/information.dart';
-import 'package:ihust/screens/roll_call/roll_call_screen.dart';
+import 'package:ihust/screens/roll_call/scan_screen.dart';
 import 'package:ihust/screens/table_time/table_time_screen.dart';
 
 List<dynamic> MENUS = [
   {"title": "Thời Khóa Biểu", "color": Colors.pinkAccent, "page":TableTimeScreen(),},
   {"title": "Đồ Án", "color": Colors.deepPurpleAccent, },
-  {"title": "Điểm Danh", "color": Colors.deepOrangeAccent, "page":RollCallScreen()},
+  {"title": "Điểm Danh", "color": Colors.deepOrangeAccent, "page":ScanScreen()},
   {"title": "Thực Tập", "color": Colors.cyan},
   {"title": "Biểu Mẫu Online", "color": Colors.blue},
   {"title": "Tin Tức Thông Báo", "color": Colors.lightGreen}
