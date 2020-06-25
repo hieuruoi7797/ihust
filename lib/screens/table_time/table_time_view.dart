@@ -32,11 +32,8 @@ class _CalendarState extends State<TableTimeView> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        home: DefaultTabController(
+    return Scaffold(
+        body: DefaultTabController(
             length: 2,
             child: Scaffold(
                 appBar: AppBar(
