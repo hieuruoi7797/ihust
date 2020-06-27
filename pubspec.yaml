@@ -54,6 +54,7 @@ dependencies:
   firebase_messaging: ^6.0.16
   qr_flutter: ^1.1.1
   barcode_scan: 3.0.1
+  youtube_player_flutter: ^7.0.0+6
 
 
 dev_dependencies:

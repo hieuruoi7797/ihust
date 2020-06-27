@@ -36,15 +36,15 @@ class _HomeViewStudentState extends State<HomeViewStudent> {
             );
           },)],
       ),
-      drawer: Container(
-        width: 200,
-        color: Colors.white,
-        child: ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return Text("abc");
-          },
-        ),
-      ),
+//      drawer: Container(
+//        width: 200,
+//        color: Colors.white,
+//        child: ListView.builder(
+//          itemBuilder: (BuildContext context, int index) {
+//            return Text("abc");
+//          },
+//        ),
+//      ),
       body: GridView.builder(
           padding: EdgeInsets.all(8),
           itemCount: MENUS.length,

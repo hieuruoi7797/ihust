@@ -11,6 +11,7 @@ import 'package:ihust/screens/login/login_screen.dart';
 import 'package:ihust/screens/splash/splash_view_screen.dart';
 
 import 'blocs/information/information_bloc.dart';
+import 'blocs/question/question_bloc.dart';
 import 'blocs/table_time/tabletime_bloc.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -60,6 +61,9 @@ void main() async {
       ),
       BlocProvider<TabletimeBloc>(
         create: (context) => TabletimeBloc(),
+      ),
+      BlocProvider<QuestionBloc>(
+        create: (context) => QuestionBloc(),
       )
     ],
     child: MyApp(),

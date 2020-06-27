@@ -1,67 +1,118 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ihust/blocs/information/information_bloc.dart';
+import 'package:ihust/blocs/question/question_bloc.dart';
+import 'package:ihust/blocs/question/question_event.dart';
+import 'package:ihust/blocs/question/question_state.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class ScanScreen extends StatefulWidget {
   @override
-  _ScanState createState() => new _ScanState();
+  _ScanState createState() => _ScanState();
 }
 
 class _ScanState extends State<ScanScreen> {
+  static QuestionBloc questionBloc = new QuestionBloc();
   String barcode = "";
 
   @override
+  void initState() {
+    questionBloc = BlocProvider.of<QuestionBloc>(context);
+    scan();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        title: new Text('QR CODE SCANNER'),
-      ),
-      body: new Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            margin:
-                EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0, top: 8.0),
-            decoration: myBoxDecoration(),
-            padding: EdgeInsets.only(
-                left: 16.0, right: 16.0, bottom: 64.0, top: 8.0),
-            child: Text(
-              barcode,
-              textAlign: TextAlign.start,
+    return BlocBuilder<QuestionBloc, QuestionState>(
+      bloc: questionBloc,
+      builder: (BuildContext context, QuestionState state) {
+        if (questionBloc.state.question != null) {
+          List<dynamic> items = questionBloc.state.question.options;
+          items.add(questionBloc.state.question.answer);
+          return Scaffold(
+            appBar: new AppBar(
+              title: new Text('QR CODE SCANNER'),
             ),
-          ),
-          Container(
-              margin:
-                  EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0, top: 8.0),
-              decoration: myBoxDecoration(),
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: TextField(
-//                selectionHeightStyle: BoxHeightStyle,
-                expands: false,
-                minLines: 20,
-                maxLines: 100,
-                decoration: InputDecoration(hintText: 'Enter the answer'),
-              )),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: RaisedButton(
-              color: Colors.red,
-              textColor: Colors.white,
-              splashColor: Colors.blueGrey,
-              onPressed: scan,
-              child: const Text('STAT CAMERA SCAN'),
+            body: new Stack(
+              children: <Widget>[
+                new Container(
+                    padding: EdgeInsets.all(16),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      elevation: 32,
+                      child: ListView(
+                        padding: EdgeInsets.all(8),
+                        children: <Widget>[
+                          new Center(
+                              child: Text(
+                            questionBloc.state.question.question,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              fontSize: 20,
+                            ),
+                          )),
+                          new Image.network(
+                              questionBloc.state.question.imageUrl),
+                          new YoutubePlayer(
+                            controller: new YoutubePlayerController(
+                              initialVideoId: YoutubePlayer.convertUrlToId(
+                                  questionBloc.state.question.videoUrl),
+                              flags: YoutubePlayerFlags(
+                                autoPlay: false,
+                                mute: false,
+                              ),
+                            ),
+                            showVideoProgressIndicator: true,
+                            progressIndicatorColor: Colors.amber,
+                            progressColors: ProgressBarColors(
+                              playedColor: Colors.amber,
+                              handleColor: Colors.amberAccent,
+                            ),
+                          ),
+//                          new Container(
+//                            padding: EdgeInsets.all(8),
+//                            child: ListView.builder(itemBuilder: (, int index){
+//                              return option(context, index, items);
+//                            }),
+//
+//                          ),
+                        ],
+                      ),
+                    ))
+              ],
             ),
-          ),
-        ],
-      ),
+          );
+        } else
+          return Scaffold(
+              appBar: new AppBar(
+                title: new Text('QR CODE SCANNER'),
+              ),
+              body: Center(
+                child: RaisedButton(
+                  color: Colors.red,
+                  textColor: Colors.white,
+                  splashColor: Colors.blueGrey,
+                  onPressed: scan,
+                  child: const Text('STAT CAMERA SCAN'),
+                ),
+              ));
+      },
     );
   }
 
   Future scan() async {
     try {
       ScanResult barcode = await BarcodeScanner.scan();
-      setState(() => this.barcode = barcode.rawContent);
+      this.barcode = barcode.rawContent;
+      questionBloc.add(LoadQuestion(
+        data: this.barcode,
+      ));
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.cameraAccessDenied) {
         setState(() {
@@ -86,4 +137,14 @@ class _ScanState extends State<ScanScreen> {
           ),
     );
   }
+
+  Widget Option(List<dynamic> items, int index) {
+    return
+      ListTile(
+        title: Text(items[0].toString()),
+        leading: Radio(value: null, groupValue: null, onChanged: null),
+      );
+  }
+
 }
+
