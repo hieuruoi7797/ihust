@@ -61,6 +61,8 @@ class TabletimeBloc extends Bloc<ClassEvent, ClassState> {
         yield state.update(error: result);
       }
 
-    } catch (e) {}
+    } catch (e) {
+      yield state.update(isLoading: false);
+    }
   }
 }

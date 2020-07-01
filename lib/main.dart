@@ -11,6 +11,7 @@ import 'package:ihust/screens/login/login_screen.dart';
 import 'package:ihust/screens/splash/splash_view_screen.dart';
 
 import 'blocs/information/information_bloc.dart';
+import 'blocs/projects/projects_bloc.dart';
 import 'blocs/question/question_bloc.dart';
 import 'blocs/table_time/tabletime_bloc.dart';
 
@@ -64,6 +65,9 @@ void main() async {
       ),
       BlocProvider<QuestionBloc>(
         create: (context) => QuestionBloc(),
+      ),
+      BlocProvider<ProjectBloc>(
+        create: (context) => ProjectBloc(),
       )
     ],
     child: MyApp(),

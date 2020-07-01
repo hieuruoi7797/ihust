@@ -97,13 +97,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                       child: _submitButton(),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      alignment: Alignment.centerRight,
-                      child: Text('Forgot Password ?',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500)),
-                    ),
+//                    Container(
+//                      padding: EdgeInsets.symmetric(vertical: 10),
+//                      alignment: Alignment.centerRight,
+//                      child: Text('Forgot Password ?',
+//                          style: TextStyle(
+//                              fontSize: 14, fontWeight: FontWeight.w500)),
+//                    ),
                     _divider(),
                     // _facebookButton(),
                     Expanded(

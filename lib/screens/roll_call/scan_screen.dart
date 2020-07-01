@@ -6,7 +6,11 @@ import 'package:ihust/blocs/information/information_bloc.dart';
 import 'package:ihust/blocs/question/question_bloc.dart';
 import 'package:ihust/blocs/question/question_event.dart';
 import 'package:ihust/blocs/question/question_state.dart';
+import 'package:ihust/utils/services.dart';
+import 'package:ihust/utils/utils.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+enum RadioValue { A, B, C, D }
 
 class ScanScreen extends StatefulWidget {
   @override
@@ -14,6 +18,8 @@ class ScanScreen extends StatefulWidget {
 }
 
 class _ScanState extends State<ScanScreen> {
+  int theAnswer = 0;
+  RadioValue _groupValue = RadioValue.A;
   static QuestionBloc questionBloc = new QuestionBloc();
   String barcode = "";
 
@@ -56,16 +62,19 @@ class _ScanState extends State<ScanScreen> {
                               fontStyle: FontStyle.italic,
                               fontSize: 20,
                             ),
-                          )),
-                          new Image.network(
-                              questionBloc.state.question.imageUrl),
+                          )), ///Text Question
+                          new Container(
+                            padding: EdgeInsets.all(8),
+                            child: Image.network(
+                                questionBloc.state.question.imageUrl),
+                          ),///Image Question
                           new YoutubePlayer(
                             controller: new YoutubePlayerController(
                               initialVideoId: YoutubePlayer.convertUrlToId(
                                   questionBloc.state.question.videoUrl),
                               flags: YoutubePlayerFlags(
                                 autoPlay: false,
-                                mute: false,
+                                mute: true,
                               ),
                             ),
                             showVideoProgressIndicator: true,
@@ -74,14 +83,69 @@ class _ScanState extends State<ScanScreen> {
                               playedColor: Colors.amber,
                               handleColor: Colors.amberAccent,
                             ),
-                          ),
-//                          new Container(
-//                            padding: EdgeInsets.all(8),
-//                            child: ListView.builder(itemBuilder: (, int index){
-//                              return option(context, index, items);
-//                            }),
-//
-//                          ),
+                          ),///Video Question
+                          new Column(
+                            children: <Widget>[
+                              ListTile(
+                                title: Text(items[0]),
+                                leading: Radio(
+                                  value: RadioValue.A,
+                                  groupValue: _groupValue,
+                                  onChanged: (RadioValue value) {
+                                    setState(() {
+                                      _groupValue = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                              ListTile(
+                                title: Text(items[1]),
+                                leading: Radio(
+                                  value: RadioValue.B,
+                                  groupValue: _groupValue,
+                                  onChanged: (RadioValue value) {
+                                    setState(() {
+                                      _groupValue = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                              ListTile(
+                                title: Text(items[2]),
+                                leading: Radio(
+                                  value: RadioValue.C,
+                                  groupValue: _groupValue,
+                                  onChanged: (RadioValue value) {
+                                    setState(() {
+                                      _groupValue = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                              ListTile(
+                                title: Text(items[3]),
+                                leading: Radio(
+                                  value: RadioValue.D,
+                                  groupValue: _groupValue,
+                                  onChanged: (RadioValue value) {
+                                    setState(() {
+                                      _groupValue = value;
+                                    });
+                                  },
+                                ),
+                              )
+                            ],
+                          ),///Radio Button Answers
+                          new Container(
+                            padding: EdgeInsets.all(8),
+                            child: RaisedButton(
+                              color: Colors.red,
+                              textColor: Colors.white,
+                              splashColor: Colors.blueGrey,
+//                              onPressed: sendTheAnswer("20158136","3",barcode),
+                              child: const Text('Xác nhận'),
+                            ),
+                          )
                         ],
                       ),
                     ))
@@ -89,21 +153,25 @@ class _ScanState extends State<ScanScreen> {
             ),
           );
         } else
-          return Scaffold(
-              appBar: new AppBar(
-                title: new Text('QR CODE SCANNER'),
-              ),
-              body: Center(
-                child: RaisedButton(
-                  color: Colors.red,
-                  textColor: Colors.white,
-                  splashColor: Colors.blueGrey,
-                  onPressed: scan,
-                  child: const Text('STAT CAMERA SCAN'),
-                ),
-              ));
+          return _newScanScreen();
       },
     );
+  }
+
+  Scaffold _newScanScreen(){
+    return Scaffold(
+        appBar: new AppBar(
+          title: new Text('QR CODE SCANNER'),
+        ),
+        body: Center(
+          child: RaisedButton(
+            color: Colors.red,
+            textColor: Colors.white,
+            splashColor: Colors.blueGrey,
+            onPressed: scan,
+            child: const Text('STAT CAMERA SCAN'),
+          ),
+        ));
   }
 
   Future scan() async {
@@ -138,13 +206,19 @@ class _ScanState extends State<ScanScreen> {
     );
   }
 
-  Widget Option(List<dynamic> items, int index) {
-    return
-      ListTile(
-        title: Text(items[0].toString()),
-        leading: Radio(value: null, groupValue: null, onChanged: null),
-      );
-  }
+//  Stream<QuestionState> sendTheAnswer(String studentId, String answer, String barcode) async* {
+//    AppServices services = new AppServices(
+//        action: "getquestion&sessionid=$studentId&data=$answer",
+//        body: null);
+//    try {
+//  }
+//}
 
+
+sendTheAnswer(String s, String t, String barcode) async {
+  String sessionId = await ClientUtils.getDeviceDetails();
+  AppServices services = new AppServices(
+      action: "rollcall&sessionid=$sessionId&userid=$s&data=$barcode&answer=$t",
+      body: null);
 }
-
+}
