@@ -44,9 +44,11 @@ class _TableTimeScreenState extends State<TableTimeScreen> {
               appBar: AppBar(
                 title: Text('Thoi Khoa Bieu'),
               ),
-              body: CircularProgressIndicator(
-                strokeWidth: .7,
-              ),
+              body: Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: .7,
+                ),
+              )
             );
             }else{
               return Center(child: Text("Error"));

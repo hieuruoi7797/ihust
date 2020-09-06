@@ -2,6 +2,7 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_countdown_timer/countdown_timer.dart';
 import 'package:ihust/blocs/information/information_bloc.dart';
 import 'package:ihust/blocs/question/question_bloc.dart';
 import 'package:ihust/blocs/question/question_event.dart';
@@ -142,8 +143,8 @@ class _ScanState extends State<ScanScreen> {
                               color: Colors.red,
                               textColor: Colors.white,
                               splashColor: Colors.blueGrey,
-//                              onPressed: sendTheAnswer("20158136","3",barcode),
                               child: const Text('Xác nhận'),
+                              onPressed: sendTheAnswer,
                             ),
                           )
                         ],
@@ -206,19 +207,25 @@ class _ScanState extends State<ScanScreen> {
     );
   }
 
-//  Stream<QuestionState> sendTheAnswer(String studentId, String answer, String barcode) async* {
-//    AppServices services = new AppServices(
-//        action: "getquestion&sessionid=$studentId&data=$answer",
-//        body: null);
-//    try {
-//  }
-//}
-
-
-sendTheAnswer(String s, String t, String barcode) async {
-  String sessionId = await ClientUtils.getDeviceDetails();
-  AppServices services = new AppServices(
-      action: "rollcall&sessionid=$sessionId&userid=$s&data=$barcode&answer=$t",
-      body: null);
+ Future sendTheAnswer() async {
+   Navigator.of(context).pop(_newScanScreen());
+   showDialog(
+       context: context,
+       builder: (BuildContext context)
+   {
+     return AlertDialog(
+         title: new Text("Thông báo"),
+         content: new Text("Điểm danh thành công!"),
+         actions: <Widget>[
+           // usually buttons at the bottom of the dialog
+           new FlatButton(
+               child: new Text("Close"),
+               onPressed: () {
+                 Navigator.of(context).pop();
+               })
+         ]
+     );
+   }
+   );
 }
 }

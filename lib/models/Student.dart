@@ -140,7 +140,7 @@ class Student {
     this.classId = mapStudent['classId'];
     this.className = mapStudent['className'];
 //    this.cpa = mapStudent['cpa'];
-    // this.cvUrl = mapStudent['cvUrl'];
+     this.cvUrl = mapStudent['cvUrl'];
     print("xxx");
   }
 }

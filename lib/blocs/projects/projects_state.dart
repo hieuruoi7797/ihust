@@ -8,7 +8,6 @@ class ProjectState {
   final List<Project> projects;
   final bool isLoading;
   final APIError error;
-
   ProjectState({this.projects, this.error, this.isLoading});
 
   factory ProjectState.init() {
@@ -20,13 +19,17 @@ class ProjectState {
       {List<Project> projects,
       APIError error,
       bool isLoading,
-      Map<int, List<Project>> mapProjectsInfor}) {
+     }) {
     return copyWith(this,
         projects: projects, error: error, isLoading: isLoading);
   }
 
   ProjectState copyWith(ProjectState oldState,
       {List<Project> projects, APIError error, bool isLoading}) {
-    return ProjectState(projects: projects ?? oldState.projects, error: error);
+    return ProjectState(
+        projects: projects ?? oldState.projects,
+        error: error,
+        isLoading: isLoading,
+    );
   }
 }

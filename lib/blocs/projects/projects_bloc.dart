@@ -28,7 +28,6 @@ class ProjectBloc extends Bloc<ProjectsEvent,ProjectState> {
         action: "getprojects&sessionid=$sessionId",
         body: null);
     List<Project> projects = new List();
-    Map<int, List<Project>> mapProjectsInfor = new Map<int, List<Project>>();
     try {
       apiResult = await services.get();
       if (apiResult is APISuccess) {
@@ -38,7 +37,7 @@ class ProjectBloc extends Bloc<ProjectsEvent,ProjectState> {
           Project item = Project.fromJson(mapProject);
           projects.add(item);
         }
-        yield state.update(projects: projects, mapProjectsInfor: mapProjectsInfor);
+        yield state.update(projects: projects);
       } else if (apiResult is APIError) {
         yield state.update(error: apiResult);
       }

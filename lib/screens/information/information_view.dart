@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ihust/models/Student.dart';
 import 'dart:ui' as ui;
 
+import 'package:url_launcher/url_launcher.dart';
+
 class InformationView extends StatefulWidget {
   final String sessionId;
   final Student user;
@@ -99,15 +101,22 @@ class _InformationState extends State<InformationView> {
                   ),
                   new Row(
                     children: <Widget>[
-                      rowCell( 'NGOẠI NGỮ', user.englishInfo),
-                      rowCell( 'CPA', user.cpa.toString() ),
-                      rowCell( 'LỚP', user.className),
+                      rowCell('NGOẠI NGỮ', user.englishInfo),
+                      rowCell('CPA', user.cpa.toString()),
+                      rowCell('LỚP', user.className),
                     ],
                   ),
                   new Divider(height: _height / 30, color: Colors.white),
                   new Padding(
                     padding: new EdgeInsets.only(
                         left: _width / 8, right: _width / 8),
+                    child: InkWell(
+                      child: FlatButton(
+                        color: Colors.white70,
+                        child: new Text("Download CV"),
+                        onPressed: () => launch(user.cvUrl.toString()),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -128,5 +137,4 @@ class _InformationState extends State<InformationView> {
                   color: Colors.white, fontWeight: FontWeight.normal))
         ],
       ));
-
 }

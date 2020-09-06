@@ -21,6 +21,7 @@ class HomeViewStudent extends StatefulWidget {
 }
 
 class _HomeViewStudentState extends State<HomeViewStudent> {
+  int index ;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -37,15 +38,6 @@ class _HomeViewStudentState extends State<HomeViewStudent> {
             );
           },)],
       ),
-//      drawer: Container(
-//        width: 200,
-//        color: Colors.white,
-//        child: ListView.builder(
-//          itemBuilder: (BuildContext context, int index) {
-//            return Text("abc");
-//          },
-//        ),
-//      ),
       body: GridView.builder(
           padding: EdgeInsets.all(8),
           itemCount: MENUS.length,
@@ -59,6 +51,25 @@ class _HomeViewStudentState extends State<HomeViewStudent> {
                       MaterialPageRoute(builder: (context) {
                         return MENUS[index]['page'];
                       }));
+                }else{
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context)
+                      {
+                        return AlertDialog(
+                            title: new Text("Thông báo"),
+                            content: new Text("Tính năng đăng được phát triển!"),
+                            actions: <Widget>[
+                              // usually buttons at the bottom of the dialog
+                              new FlatButton(
+                                  child: new Text("Close"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  })
+                            ]
+                        );
+                      }
+                  );
                 }
               },
               child: Card(
@@ -76,23 +87,45 @@ class _HomeViewStudentState extends State<HomeViewStudent> {
             );
           }),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        onTap: (int index){
+          setState(() {
+            this.index = index;
+          });
+          _navigateToScreens(index);
+        },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text('Business'),
+            icon: Icon(Icons.check_box),
+            title: Text('RollCall'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            title: Text('School'),
+            icon: Icon(Icons.calendar_today),
+            title: Text('TimeTable'),
           ),
-        ],),
+        ],
+      ),
     );
   }
-} //part of 'home_screen.dart';
+
+  void _navigateToScreens(int index) {
+    if (index == 1){
+      Navigator.of(context).push(MaterialPageRoute(builder: (context){
+        return MENUS[2]['page'];
+      }));
+    }
+    if (index == 2){
+      Navigator.of(context).push(MaterialPageRoute(builder: (context){
+        return MENUS[0]['page'];
+      }));
+    }
+  }
+}
+//part of 'home_screen.dart';
 //
 //class HomeViewStudent extends StatefulWidget {
 //  final Student user;
